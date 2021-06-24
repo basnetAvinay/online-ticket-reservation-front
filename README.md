@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # FrontApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.4.
@@ -29,3 +30,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 =======
 # basnetAvinay-online-ticket-reservation-front
 >>>>>>> 06c4e52ad9a68ab7b8cd0599e167711e0e92c281
+=======
+# online-ticket-reservation-front
+>>>>>>> 7396344800fb9269929ef421ca6c7eaf72795808

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
@@ -46,6 +47,8 @@ testem.log
 .DS_Store
 Thumbs.db
 =======
+=======
+>>>>>>> 7396344800fb9269929ef421ca6c7eaf72795808
 # Logs
 logs
 *.log
@@ -150,4 +153,7 @@ dist
 
 # TernJS port file
 .tern-port
+<<<<<<< HEAD
 >>>>>>> 06c4e52ad9a68ab7b8cd0599e167711e0e92c281
+=======
+>>>>>>> 7396344800fb9269929ef421ca6c7eaf72795808
