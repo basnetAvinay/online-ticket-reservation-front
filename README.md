@@ -1,35 +1,19 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-# FrontApp
+# Online Ticket Reservation - Angular, Angular Material, D3 JS
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.4.
+This projects demonstrates a simple online bus reservation system. There are three pages viz home, ticket and payment.
+
+Ticket page allows user to view the available bus and reserve tickets. And on payment page user can complete the payment and admin has access to chart of sales made by each bus.
+
+Angular Version 11.0.4.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically navigate to the login page.
 
-## Code scaffolding
+Use following credentials to login.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Username: admin
 
-## Build
+Password: admin
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-=======
-# basnetAvinay-online-ticket-reservation-front
->>>>>>> 06c4e52ad9a68ab7b8cd0599e167711e0e92c281
-=======
-# online-ticket-reservation-front
->>>>>>> 7396344800fb9269929ef421ca6c7eaf72795808
+Or navigate to http://localhost:8080/registration to register new user after you have setup https://github.com/basnetAvinay/online-ticket-reservation-back.
