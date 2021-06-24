@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@600&display=swap');
+
+* {
+  font-family: 'Dosis', sans-serif;
+  font: #FFFFFF !important;
+}
+
+html, body {
+  height: 100%;
+  margin:0; 
+  padding:0; 
+  box-sizing:border-box;  
+}
+
+body { 
+  margin: 0; 
+  background-color: #121212;
+}
+
+.app-toolbar {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+  width: 100%;
+}
+
+.mat-button-disabled {
+  cursor: not-allowed !important;
+}

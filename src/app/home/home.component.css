@@ -1,0 +1,38 @@
+.home {
+  min-height: 100vh !important;
+  max-width: 100% !important;
+}
+
+.root {
+  display: grid;
+  place-items: center;
+  min-height: 100vh !important;
+}
+
+.child {
+  text-align: center;
+}
+
+.text {
+  color: #ffffff;
+  font-size: 2.5rem;
+  font-family: 'Dosis', sans-serif;
+}
+
+.highlight {
+  color: #e31b6d;
+}
+
+.btn {
+  color: #ffffff;
+  font-size: 20px;
+  border: 1px solid #ffffff;
+  margin-right: 10px;
+}
+
+.btn:hover {
+  background-color: #00a1a7;
+  border: 1px solid #00a1a7;
+}
+
+

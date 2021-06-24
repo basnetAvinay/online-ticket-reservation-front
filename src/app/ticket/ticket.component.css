@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: 10px;
+}
+
+.bus-header-image {
+  background-image: url('../../assets/bus-avatar.jpg');
+  max-width: 350px !important;
+  max-height: 100px !important;
+  /* background-size: cover; */
+}
+
+.card {
+  max-width: 350px;
+  margin: 10px;
+  align-self: flex-start;
+  /* max-height: 300px; */
+}
+
+table {
+  width: 80%;
+  margin: 20px;
+}
+
+.error-message {
+  color: #D8000C;
+  background-color: #FFBABA;
+  display: block;
+}
