@@ -8,20 +8,20 @@
 
     <div style="display: block;"></div>
  
-  <table *ngIf="unpaidPayments?.length > 0; else noReservationBlock" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table *ngIf="ticketReservations?.length > 0; else noReservationBlock" mat-table [dataSource]="ticketReservations" class="mat-elevation-z8">
     <ng-container matColumnDef="paymentId">
-      <th mat-header-cell *matHeaderCellDef> Payment Id </th>
-      <td mat-cell *matCellDef="let payment"> {{payment.paymentId}} </td>
+      <th mat-header-cell *matHeaderCellDef>Payment Id</th>
+      <td mat-cell *matCellDef="let data">{{data.ticketReservationId}}</td>
     </ng-container>
   
     <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef> Description </th>
-      <td mat-cell *matCellDef="let payment"> {{payment.description}} </td>
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let data">Ticket for {{data.noOfSeatReserved}} people from {{data.ticket.source}} to {{data.ticket.destination}}</td>
     </ng-container>
   
     <ng-container matColumnDef="totalFare">
-      <th mat-header-cell *matHeaderCellDef> Fare </th>
-      <td mat-cell *matCellDef="let payment"> Rs. {{ payment.totalFare }} </td>
+      <th mat-header-cell *matHeaderCellDef>Fare</th>
+      <td mat-cell *matCellDef="let data">Rs. {{data.noOfSeatReserved * data.ticket.farePerSeat}}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -37,6 +37,6 @@
 </mat-list>
   
 <mat-card *ngIf="paymentCompleted" class="success-message">Thank you for choosing us. Happy Travelling!!!</mat-card>
-<button mat-raised-button color="primary" [disabled]="!(unpaidPayments?.length>0)" (click)="payUnpaidPayments();" class="payment-button">
+<button mat-raised-button color="primary" [disabled]="!ticketReservations?.length" (click)="payUnpaidPayments();" class="payment-button">
   Complete Payment</button>
 </div>

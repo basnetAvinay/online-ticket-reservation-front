@@ -2,8 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
-import { TicketReserved } from "./ticket-reserved.model";
-import { Ticket } from "./ticket.model";
+import { Ticket, TicketReservation, TicketReservationCreate } from "../app.model";
 
 @Injectable({
   providedIn: 'root'
@@ -11,31 +10,20 @@ import { Ticket } from "./ticket.model";
 export class TicketService {
 
   readonly tickets$ = new BehaviorSubject<Ticket[]>(null);
-  readonly ticketsReservedByUser$ = new BehaviorSubject<
-  {
-    reservationId: number,
-    busNumber: string,
-    numberOfTicketsReserved: number,
-    paymentId: number
-  }[]>(null);
+  readonly ticketsReservedByUser$ = new BehaviorSubject<TicketReservation[]>(null);
 
   constructor(private http: HttpClient) {}
 
   fetchAllTickets() {
-    return this.http.get<Ticket[]>(`${environment.apiBaseUrl}/ticket/tickets`).subscribe(tickets => this.tickets$.next(tickets));
+    return this.http.get<Ticket[]>(`${environment.apiBaseUrl}/tickets`).subscribe(tickets => this.tickets$.next(tickets));
   }
 
-  reserveTickets(ticketReserve: TicketReserved): Observable<TicketReserved> {
-    return this.http.post<TicketReserved>(`${environment.apiBaseUrl}/ticketReserved/save`, ticketReserve);
+  reserveTickets(ticketReservationCreate: TicketReservationCreate): Observable<TicketReservationCreate> {
+    return this.http.post<TicketReservationCreate>(`${environment.apiBaseUrl}/ticket-reservation/save`, ticketReservationCreate);
   }
 
   fetchAllReservedTicketsByUsername() {
-    this.http.get<{
-      reservationId: number,
-      busNumber: string,
-      numberOfTicketsReserved: number,
-      paymentId: number
-    }[]>(`${environment.apiBaseUrl}/ticketReserved/findAllTicketsByUsername`)
-      .subscribe(reservedTickets => this.ticketsReservedByUser$.next(reservedTickets));
+    this.http.get<TicketReservation[]>(`${environment.apiBaseUrl}/ticket-reservation/my`)
+      .subscribe(ticketReservations => this.ticketsReservedByUser$.next(ticketReservations));
   }
 }

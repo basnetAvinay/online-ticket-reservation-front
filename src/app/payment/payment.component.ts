@@ -1,9 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as d3 from 'd3';
 import { Subscription } from 'rxjs';
-import { Payment } from './payment.model';
+import { TicketReservation } from '../app.model';
 import { PaymentService } from './payment.service';
-
 
 export interface UserPayment {
   paymentId: number;
@@ -16,38 +15,34 @@ export interface UserPayment {
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css']
 })
-export class PaymentComponent implements OnInit {
+export class PaymentComponent implements OnInit, OnDestroy {
 
-  unpaidPayments: Payment[] = [];
+  ticketReservations: TicketReservation[] = [];
   unpaidPaymentsSub: Subscription;
 
   paymentCompleted: boolean = false;
   paymentCompletedSub: Subscription;
 
   displayedColumns: string[] = ['paymentId', 'description', 'totalFare'];
-  dataSource: Payment[] = [];
 
   isUserAdmin = false;
 
-  constructor(private paymentService: PaymentService, private changeDetection: ChangeDetectorRef) { }
+  constructor(private paymentService: PaymentService) { }
 
   ngOnInit(): void {
     const authorities = sessionStorage.getItem('authorities');
-    this.isUserAdmin = ( authorities == 'ADMIN' ) ? true : false;
+    this.isUserAdmin = (authorities == 'ADMIN') ? true : false;
     this.fetchUnpaidPayments();
-    this.paymentService.fetchTotalSales().subscribe( totalSales => {
-      this.salesBarGraph(totalSales);
-      // console.log(totalSales);
+    this.paymentService.fetchTotalSales().subscribe(sales => {
+      this.salesBarGraph(sales);
     });
   }
 
   fetchUnpaidPayments() {
     this.paymentService.fetchAllUnpaidTicketsOfUser();
-    this.unpaidPaymentsSub = this.paymentService.unpaidTicketsOfUser$.subscribe(
-      unpaidPayments => {
-        this.unpaidPayments = unpaidPayments;
-        this.dataSource = this.unpaidPayments;
-        this.changeDetection.detectChanges();
+    this.unpaidPaymentsSub = this.paymentService.unpaidTicketsOfUser$
+      .subscribe(ticketReservations => {
+        this.ticketReservations = ticketReservations;
       });
   }
 
@@ -56,11 +51,15 @@ export class PaymentComponent implements OnInit {
     this.paymentCompletedSub = this.paymentService.paymentCompleted$.subscribe(paymentCompleted => {
       this.paymentCompleted = paymentCompleted;
       this.fetchUnpaidPayments();
+      this.paymentService.fetchTotalSales().subscribe(sales => {
+        this.salesBarGraph(sales);
+      });
     });
   }
 
-  salesBarGraph(totalSales: {busNumber: string, totalSales: number}[]) {
+  salesBarGraph(totalSales: { busNumber: string, sales: number }[]) {
     let svg = d3.select("svg");
+    svg.selectAll('*').remove();
     let margin = 200;
     let width = Number(svg.attr("width")) - margin;
     let height = Number(svg.attr("height")) - margin;
@@ -85,7 +84,7 @@ export class PaymentComponent implements OnInit {
       .style("fill", "white")
       .text("Bus Number");
 
-    const values = totalSales.map(totalSale => totalSale.totalSales);
+    const values = totalSales.map(totalSale => totalSale.sales);
     const yDomainMin = d3.min(values) * 0.9;
     const yDomainMax = d3.max(values) * 1.1;
     const yScale = d3.scaleLinear()
@@ -122,10 +121,14 @@ export class PaymentComponent implements OnInit {
       .transition()
       .ease(d3.easeLinear)
       .duration(2000)
-      .attr('height', totalSale => height - yScale(totalSale.totalSales))
-      .attr('y', totalSale => yScale(totalSale.totalSales))
-      .attr('height', totalSale => height - yScale(totalSale.totalSales))
+      .attr('height', totalSale => height - yScale(totalSale.sales))
+      .attr('y', totalSale => yScale(totalSale.sales))
+      .attr('height', totalSale => height - yScale(totalSale.sales))
       .attr('fill', '#e31b6d')
-      
+
+  }
+
+  ngOnDestroy(): void {
+    this.unpaidPaymentsSub.unsubscribe();
   }
 }
