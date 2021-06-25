@@ -18,4 +18,3 @@ Username: admin
 
 Password: admin
 
-Or navigate to http://localhost:8080/registration to register new user after you have setup https://github.com/basnetAvinay/online-ticket-reservation-back.
